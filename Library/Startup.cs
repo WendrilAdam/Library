@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using System.Reflection;
 using System.IO;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using Library.DatabaseContext;
 
 namespace Library
 {
@@ -29,6 +31,8 @@ namespace Library
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<LibraryContext>(options =>
+                options.UseSqlServer("Data Source=CASA-PC\\SQLEXPRESS,1433;Initial Catalog=Library;User ID=sa;Password=10081997w;Trusted_Connection=True;"));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
