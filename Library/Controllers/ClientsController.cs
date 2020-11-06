@@ -22,7 +22,7 @@ namespace Library.Controllers
         }
 
         /// <summary>
-        /// Listar clientes
+        /// Listar Clientes
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -32,12 +32,35 @@ namespace Library.Controllers
         }
 
         /// <summary>
-        /// Buscar cliente por Id
+        /// Número de Clientes Registrados
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Count")]
+        public int GetClientsNumber()
+        {
+            List<Clients> lista = _context.Clients.ToList();
+            return lista.Count();
+        }
+
+        /// <summary>
+        /// Lista de Clientes Ordenada por Nome
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("order-by-name")]
+        public IOrderedEnumerable<Clients> GetOrderByName()
+        {
+            List<Clients> lista = _context.Clients.ToList();
+            return lista.OrderBy(cliente => cliente.Nome);
+        }
+
+        /// <summary>
+        /// Buscar Cliente por Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Clients>> GetClients(int id)
+        public async Task<ActionResult<Clients>> GetClientsId(int id)
         {
             var clients = await _context.Clients.FindAsync(id);
 
@@ -64,6 +87,117 @@ namespace Library.Controllers
             }
 
             _context.Entry(clients).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ClientsExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Alterar Nome de um Cliente
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="nome"></param>
+        /// <returns></returns>
+        [HttpPatch]
+        [Route("Nome")]
+        public async Task<IActionResult> PatchNome(int id, string nome)
+        {
+            Clients lista = await _context.Clients.FindAsync(id);
+            if (id != lista.Id)
+            {
+                return BadRequest();
+            }
+
+            lista.Nome = nome;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ClientsExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Alterar CPF de um Cliente
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cpf"></param>
+        /// <returns></returns>
+        [HttpPatch]
+        [Route("CPF")]
+        public async Task<IActionResult> PatchCPF(int id, string cpf)
+        {
+            Clients lista = await _context.Clients.FindAsync(id);
+            if (id != lista.Id)
+            {
+                return BadRequest();
+            }
+
+            lista.Cpf = cpf;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ClientsExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Alterar Celular de um Cliente
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="celular"></param>
+        /// <returns></returns>
+        [HttpPatch]
+        [Route("Celular")]
+        public async Task<IActionResult> PatchCelular(int id, string celular)
+        {
+            Clients lista = await _context.Clients.FindAsync(id);
+            if (id != lista.Id)
+            {
+                return BadRequest();
+            }
+
+            lista.Celular = celular;
 
             try
             {

@@ -27,7 +27,7 @@ namespace Library
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // Esse método adiciona serviçoes como conexão com banco de dados, swagger e controllers no projeto.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -59,7 +59,7 @@ namespace Library
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // Esse metodo configura as requisições HTTP.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwagger(c =>
