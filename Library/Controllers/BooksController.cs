@@ -21,16 +21,23 @@ namespace Library.Controllers
             _context = context;
         }
 
-        // GET: api/Books
+        /// <summary>
+        /// Listar livros
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Books>>> GetBooks()
         {
             return await _context.Books.ToListAsync();
         }
 
-        // GET: api/Books/5
+        /// <summary>
+        /// Buscar livro por Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Books>> GetBooks(int id)
+        public async Task<ActionResult<Books>> GetBooksId(int id)
         {
             var books = await _context.Books.FindAsync(id);
 
@@ -42,9 +49,12 @@ namespace Library.Controllers
             return books;
         }
 
-        // PUT: api/Books/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Alterar livros
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="books"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBooks(int id, Books books)
         {
@@ -74,9 +84,11 @@ namespace Library.Controllers
             return NoContent();
         }
 
-        // POST: api/Books
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Adicionar livro
+        /// </summary>
+        /// <param name="books"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Books>> PostBooks(Books books)
         {
@@ -86,7 +98,11 @@ namespace Library.Controllers
             return CreatedAtAction("GetBooks", new { id = books.Id }, books);
         }
 
-        // DELETE: api/Books/5
+       /// <summary>
+       /// Deletar livro
+       /// </summary>
+       /// <param name="id"></param>
+       /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<Books>> DeleteBooks(int id)
         {

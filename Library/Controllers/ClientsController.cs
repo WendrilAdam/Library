@@ -21,14 +21,21 @@ namespace Library.Controllers
             _context = context;
         }
 
-        // GET: api/Clients
+        /// <summary>
+        /// Listar clientes
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Clients>>> GetClients()
         {
             return await _context.Clients.ToListAsync();
         }
 
-        // GET: api/Clients/5
+        /// <summary>
+        /// Buscar cliente por Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Clients>> GetClients(int id)
         {
@@ -42,9 +49,12 @@ namespace Library.Controllers
             return clients;
         }
 
-        // PUT: api/Clients/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Alterar Cliente
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="clients"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutClients(int id, Clients clients)
         {
@@ -74,9 +84,11 @@ namespace Library.Controllers
             return NoContent();
         }
 
-        // POST: api/Clients
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Adicionar Cliente
+        /// </summary>
+        /// <param name="clients"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Clients>> PostClients(Clients clients)
         {
@@ -86,7 +98,11 @@ namespace Library.Controllers
             return CreatedAtAction("GetClients", new { id = clients.Id }, clients);
         }
 
-        // DELETE: api/Clients/5
+        /// <summary>
+        /// Deletar Cliente
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<Clients>> DeleteClients(int id)
         {

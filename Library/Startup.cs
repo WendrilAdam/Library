@@ -38,14 +38,14 @@ namespace Library
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "ToDo API",
-                    Description = "A simple example ASP.NET Core Web API",
+                    Title = "Library Api",
+                    Description = "A simple library ASP.NET Core Web API",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
-                        Name = "Shayne Boyer",
-                        Email = string.Empty,
-                        Url = new Uri("https://twitter.com/spboyer"),
+                        Name = "Wendril Adam",
+                        Email = "adamwendril@gmail.com",
+                        Url = new Uri("https://www.linkedin.com/in/wendril-adam-aaa414169/"),
                     },
                     License = new OpenApiLicense
                     {
@@ -70,7 +70,7 @@ namespace Library
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Library");
             });
 
             if (env.IsDevelopment())
